@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import time
+import random 
 
 REPO_PATH = os.getcwd()
 
@@ -16,7 +17,9 @@ def make_commit():
         print(f"Error creating commit: {e}")
 
 if __name__ == "__main__":
-    for i in range(5):
+    num_commits = random.randint(1, 10)
+    print(f"🚀 Attempting to make {num_commits} random commit(s).")
+    for i in range(num_commits):
         print(f"Running commit #{i+1}")
         make_commit()
         time.sleep(1)
