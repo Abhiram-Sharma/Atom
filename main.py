@@ -1,9 +1,8 @@
 import os
-import schedule
-import time
 from datetime import datetime
+import time
 
-REPO_PATH = r"E:\Temp Files\projects\gemini\GitAutomate"
+REPO_PATH = os.getcwd()
 
 def make_commit():
     try:
@@ -12,22 +11,16 @@ def make_commit():
             f.write(f"Commit made at {datetime.now()}\n")
         os.system("git add .")
         os.system(f"git commit -m \"Automated commit at {datetime.now()}\"")
-        os.system("git push")
-        print(f"Commit made at {datetime.now()}")
+        print(f"Commit created at {datetime.now()}")
     except Exception as e:
-        print(f"Error making commit: {e}")
-
-def job():
-    for _ in range(5):
-        make_commit()
-        time.sleep(1) 
-
-schedule.every().day.at("10:00").do(job)
-schedule.every().day.at("22:00").do(job)
+        print(f"Error creating commit: {e}")
 
 if __name__ == "__main__":
-    print("Starting Git Automate script...")
-    job() # Run once on startup
-    while True:
-        schedule.run_pending()
+    for i in range(5):
+        print(f"Running commit #{i+1}")
+        make_commit()
         time.sleep(1)
+    
+    print("\nPushing to remote...")
+    os.system("git push")
+    print("Push successful.")
